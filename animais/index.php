@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__.'/../config/database.php';require_once __DIR__.'/../config/auth.php';exigirLogin();
 $titulo='Animais';
-$rows=$pdo->query("SELECT a.*,t.nome AS tutor FROM animais a JOIN tutores t ON t.id=a.tutor_id ORDER BY a.nome")->fetchAll();
+$rows=$pdo->query("SELECT a.*,t.nome AS tutor FROM animais a JOIN tutores t ON t.id=a.tutor_id WHERE a.ativo = 1 ORDER BY a.nome")->fetchAll();
 include __DIR__.'/../includes/header.php';?>
 <h1>Animais</h1><p class="muted">Pacientes cadastrados na clínica.</p><div class="actions"><a class="btn" href="form.php">+ Novo animal</a></div>
 <div class="panel table-wrap"><table><tr><th>Nome</th><th>Espécie</th><th>Raça</th><th>Tutor</th><th>Nascimento</th><th>Idade</th><th>Ações</th></tr>
