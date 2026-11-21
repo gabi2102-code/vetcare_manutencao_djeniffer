@@ -13,15 +13,15 @@ $titulo = $titulo ?? 'VetCare';
 <body>
 <header class="topbar">
   <a class="brand" href="/vetcare_manutencao_djeniffer/index.php">🐾 VetCare</a>
-  <nav>
+<nav>
     <?php if (!empty($_SESSION['usuario_id'])): ?>
-      <a href= "index.php">Painel</a>
-      <a href="tutores/index.php">Tutores</a>
-      <a href="animais/index.php">Animais</a>
-      <a href="consultas/index.php">Consultas</a>
-      <a href="chamados/index.php">Suporte</a>
-      <a href="../logout.php">Sair</a>
+      <a href= "/vetcare_manutencao_djeniffer/index.php">Painel</a>
+      <a href="/vetcare_manutencao_djeniffer/tutores/index.php">Tutores</a>
+      <a href="/vetcare_manutencao_djeniffer/animais/index.php">Animais</a>
+      <a href="/vetcare_manutencao_djeniffer/consultas/index.php">Consultas</a>
+      <a href="/vetcare_manutencao_djeniffer/chamados/index.php">Suporte</a>
+      <a href="/vetcare_manutencao_djeniffer/logout.php">Sair</a>
     <?php endif; ?>
-  </nav>
+</nav>
 </header>
 <main class="container">

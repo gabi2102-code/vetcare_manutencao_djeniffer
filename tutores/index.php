@@ -3,7 +3,7 @@ require_once __DIR__.'/../config/database.php'; require_once __DIR__.'/../config
 $titulo='Tutores';
 $busca=trim($_GET['busca']??'');
 $sql="SELECT * FROM tutores WHERE nome LIKE ?";
-$param=['%'.(explode(' ',$busca)[0]).'%']; 
+$param=['%'.$busca.'%'];
 if($busca===''){ $sql="SELECT * FROM tutores"; $param=[]; }
 $stmt=$pdo->prepare($sql." ORDER BY nome"); $stmt->execute($param); $rows=$stmt->fetchAll();
 include __DIR__.'/../includes/header.php';

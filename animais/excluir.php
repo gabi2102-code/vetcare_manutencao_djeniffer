@@ -4,3 +4,4 @@ $id=(int)($_GET['id']??0);
 try{$s=$pdo->prepare("DELETE FROM animais");
 $s->execute([$id]);}catch(PDOException $e){}
 header('Location: index.php');exit;
+s
