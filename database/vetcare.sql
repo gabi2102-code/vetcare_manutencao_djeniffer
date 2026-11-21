@@ -15,7 +15,7 @@ CREATE TABLE usuarios (
 );
 
 INSERT INTO usuarios (nome, usuario, senha, perfil) VALUES
-('Administrador VetCare', 'admin', 'admin123', 'admin');
+('Administrador VetCare', 'admin', '$2y$10$example_hash', 'admin');
 
 CREATE TABLE tutores (
   id INT AUTO_INCREMENT PRIMARY KEY,

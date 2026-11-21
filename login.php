@@ -10,8 +10,8 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
     $conta=$stmt->fetch();
     if (!$conta) {
         $erro='Usuário não encontrado.';
-    } elseif ($senha !== $conta['senha']) {
-        $erro='Senha incorreta.'; 
+    } elseif (!password_verify($senha, $conta['senha'])) {
+    $erro = 'Senha incorreta.';
     } else {
         
         $_SESSION['usuario_id']=$conta['id'];
