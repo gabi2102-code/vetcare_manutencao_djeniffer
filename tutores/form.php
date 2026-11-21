@@ -4,9 +4,14 @@ $id=(int)($_GET['id']??0); $r=['nome'=>'','telefone'=>'','email'=>'','endereco'=
 if($id){$s=$pdo->prepare("SELECT * FROM tutores WHERE id=?");$s->execute([$id]);$r=$s->fetch()?:$r;}
 $erro='';
 if($_SERVER['REQUEST_METHOD']==='POST'){
- $nome=trim($_POST['nome']??''); $telefone=trim($_POST['telefone']??'');
- if($nome==='') $erro='Informe o nome.';
- else {
+ $nome=trim($_POST['nome']??'');
+ $telefone=trim($_POST['telefone']??'');
+ $telefoneNumeros = preg_replace('/\D/', '', $telefone);
+ if($nome==='') {
+     $erro='Informe o nome.';
+ } elseif($telefone !== '' && (strlen($telefoneNumeros) < 10 || strlen($telefoneNumeros) > 11)) {
+     $erro='Informe um telefone válido com DDD.';
+ } else {
   if($id){$s=$pdo->prepare("UPDATE tutores SET nome=?,telefone=?,email=?,endereco=?,ativo=? WHERE id=?");$s->execute([$nome,$telefone,$_POST['email'],$_POST['endereco'],(int)($_POST['ativo']??1),$id]);}
   else{$s=$pdo->prepare("INSERT INTO tutores(nome,telefone,email,endereco) VALUES(?,?,?,?)");$s->execute([$nome,$telefone,$_POST['email'],$_POST['endereco']]);}
   header('Location: index.php');exit;
