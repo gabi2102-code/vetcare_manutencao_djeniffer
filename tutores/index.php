@@ -1,11 +1,30 @@
 <?php
 require_once __DIR__.'/../config/database.php'; require_once __DIR__.'/../config/auth.php'; exigirLogin();
 $titulo='Tutores';
-$busca=trim($_GET['busca']??'');
-$sql="SELECT * FROM tutores WHERE nome LIKE ?";
-$param=['%'.$busca.'%'];
-if($busca===''){ $sql="SELECT * FROM tutores"; $param=[]; }
-$stmt=$pdo->prepare($sql." ORDER BY nome"); $stmt->execute($param); $rows=$stmt->fetchAll();
+$busca = trim($_GET['busca'] ?? '');
+
+if ($busca === '') {
+    $sql = "SELECT * FROM tutores ORDER BY nome";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+} else {
+    $palavras = preg_split('/\s+/', $busca);
+
+    $condicoes = [];
+    $param = [];
+
+    foreach ($palavras as $palavra) {
+        $condicoes[] = "nome LIKE ?";
+        $param[] = '%' . $palavra . '%';
+    }
+
+    $sql = "SELECT * FROM tutores WHERE " . implode(' AND ', $condicoes) . " ORDER BY nome";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($param);
+}
+
+$rows = $stmt->fetchAll();
 include __DIR__.'/../includes/header.php';
 ?>
 <h1>Tutores</h1><p class="muted">Cadastro e consulta de responsáveis pelos animais.</p>
